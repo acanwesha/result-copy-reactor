@@ -1,0 +1,5 @@
+# Project exclude paths
+/result-copy/target/
+/result-copy-rest/target/
+/result-copy-service/target/
+/result-copy-war/target/

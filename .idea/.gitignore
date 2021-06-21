@@ -1,0 +1,31 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/
+.project
+.settings
+.classpath
+target
+bin
+.DS_Store
+tmpdir
+.idea
+.lib
+*.iml
+.clover
+.cache
+*.orig
+*.pmd
+*.pmdruleset.xml
+gen
+temp.xml
+derby.log
+dependency-reduced-pom.xml
+*.versionBackup
+*.versionsBackup
+picasso
+/.metadata/

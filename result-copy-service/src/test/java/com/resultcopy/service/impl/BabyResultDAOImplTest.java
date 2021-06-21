@@ -61,10 +61,7 @@ public class BabyResultDAOImplTest {
         when(connectionFactory.getConnection()).thenReturn(connection);
         when(preparedStatement.executeUpdate()).thenReturn(1);
     }
-    @Test
-    public void createBabyResult() {
-        new BabyResultDAOImpl(connectionFactory).createBabyResult(2);
-    }
+
     @Test
     public void testConstructor() {
         BabyResultDAOImpl babyResultDAOImpl = new BabyResultDAOImpl();

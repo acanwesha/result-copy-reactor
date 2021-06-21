@@ -1,4 +1,5 @@
 package com.resultcopy.service.dao;
+import com.resultcopy.BabyRequest;
 import com.resultcopy.BabyResultResponse;
 /**
  * @author AC089545
@@ -8,5 +9,5 @@ import com.resultcopy.BabyResultResponse;
  */
 public interface BabyResultDAO {
     BabyResultResponse getBabyPatientByChildId(Integer childId);
-    public String createBabyResult(Integer patientId);
+    public String createBabyResult(BabyRequest babyRequest );
 }

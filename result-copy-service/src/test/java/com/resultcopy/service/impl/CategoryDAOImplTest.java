@@ -52,16 +52,12 @@ public class CategoryDAOImplTest {
         new CategoryDAOImpl(null).getCategories();
         Assertions.assertTrue(throwException());
     }
-
-
     private boolean throwException() throws SQLException {
         throw new SQLException();
     }
     @Test
     public void getCategories() throws IOException {
-
         new CategoryDAOImpl(connectionFactory).getCategories();
-
     }
     @Test
     public void testConstructor() {

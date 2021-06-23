@@ -9,5 +9,5 @@ import com.resultcopy.BabyResultResponse;
  */
 public interface BabyResultDAO {
     BabyResultResponse getBabyPatientByChildId(Integer childId);
-    public String createBabyResult(BabyRequest babyRequest );
+    public boolean createBabyResult(BabyRequest babyRequest );
 }

@@ -23,36 +23,35 @@ import java.util.List;
     @Override
     public Response copyResultsPost(BabyResult body, SecurityContext securityContext) throws NotFoundException {
         BabyResultDAO babyResultDAO=new BabyResultDAOImpl();
-        BabyRequest babyRequest = new BabyRequest();
-
-        CategoryPost categoryPost=null;
-
-        CategoryPostResult categoryPostResult=null;
 
         BabyResult babyResult=new BabyResult();
-        List<CategoryPost> categoryList= new ArrayList<>();
-        List<CategoryPostResult> categoryPostResultList= new ArrayList<>();
+        List<CategoryRequest> categoryList= new ArrayList<>();
+        List<CategoryPostResult> categoryPostResultList = null;
 
-        babyResult.setChildId(babyRequest.getChildId());
+        CategoryRequest categoryRequest=null;
+        ResultRequest resultRequest=null;
+        BabyRequest babyRequest = new BabyRequest();
+        List<ResultRequest> resultDtoList=null;
 
-        List<CategoryRequest> categoryRequestList=babyRequest.getCategory();
-        for(CategoryRequest categoryRequest:categoryRequestList){
-            categoryPost=new CategoryPost();
-            categoryPost.setDisplayName(categoryRequest.getDisplayName());
-            List<ResultRequest> resultRequestList=categoryRequest.getResult();
-            for(ResultRequest resultList:resultRequestList){
-                categoryPostResult=new CategoryPostResult();
-                categoryPostResult.setDisplayName(resultList.getDisplayName());
-                categoryPostResult.setValue(resultList.getValue());
-                categoryPostResultList.add(categoryPostResult);
+        babyRequest.setChildId(babyResult.getChildId());
+        List<CategoryPost> categoryPostList=babyResult.getCategory();
+        for(CategoryPost category:categoryPostList){
+            categoryRequest=new CategoryRequest();
+            categoryRequest.setDisplayName(category.getDisplayName());
+            List<CategoryPostResult> resultRequestList=category.getResult();
+            for(CategoryPostResult resultList:resultRequestList){
+                resultRequest= new ResultRequest();
+                resultDtoList=new ArrayList<>();
+                resultRequest.setDisplayName(resultList.getDisplayName());
+                resultRequest.setValue(resultList.getValue());
+                resultDtoList.add(resultRequest);
             }
-            categoryPost.setResult(categoryPostResultList);
-            categoryList.add(categoryPost);
+            categoryRequest.setResult(resultDtoList);
+            categoryList.add(categoryRequest);
         }
-        babyResult.setCategory(categoryList);
-/////////////////////////////////////////////////////////////////////
-        babyRequest=babyResultDAO.createBabyResult(body);
-        return Response.ok().entity(babyResult).build();
+        babyRequest.setCategory(categoryList);
+        babyResultDAO.createBabyResult(babyRequest);
+        return Response.ok().entity(body).build();
 
     }
 }

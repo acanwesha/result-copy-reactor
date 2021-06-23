@@ -48,7 +48,7 @@ public class BabyResultDAOImpl implements BabyResultDAO {
         return babyResultResponse;
     }
     @Override
-    public String createBabyResult(BabyRequest babyRequest) {
+    public boolean createBabyResult(BabyRequest babyRequest) {
         String status = "SUCCESS";
 
         Connection connection = ConnectionFactory.getConnection();
@@ -73,9 +73,10 @@ public class BabyResultDAOImpl implements BabyResultDAO {
                 }catch (SQLException ex){
                     ex.printStackTrace();
                     status = "FAILED";
+                    return false;
                 }
             }
         }
-        return   status ;
+        return   true;
     }
 }

@@ -26,6 +26,11 @@ import java.util.Objects;
   @JsonProperty("patientDetails")
   private PatientDetails patientDetails = null;
 
+  /**
+   * Initializes the patient details.
+   * @param patientDetails {@link PatientDetails}
+   * @return {@link Patient}
+   */
   public Patient patientDetails(PatientDetails patientDetails) {
     this.patientDetails = patientDetails;
     return this;
@@ -35,7 +40,7 @@ import java.util.Objects;
     if (this.patientDetails == null) {
       this.patientDetails = new PatientDetails();
     }
-    //this.patientDetails.add(patientDetailsItem);
+
     return this;
   }
 
@@ -54,30 +59,11 @@ import java.util.Objects;
     this.patientDetails = patientDetails;
   }
 
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    Patient patient = (Patient) o;
-    return Objects.equals(this.patientDetails, patient.patientDetails);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(patientDetails);
-  }
-
-
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Patient {\n");
-    
+
     sb.append("    patientDetails: ").append(toIndentedString(patientDetails)).append("\n");
     sb.append("}");
     return sb.toString();

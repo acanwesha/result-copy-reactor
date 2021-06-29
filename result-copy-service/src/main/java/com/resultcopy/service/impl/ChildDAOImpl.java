@@ -28,7 +28,7 @@ public class ChildDAOImpl implements ChildDAO {
 
     /**
      * @param patientId
-     *          patientId is the unique identifier for the patient.
+     * patientId is the unique identifier for the patient.
      */
     @Override
     public List<PatientDetailsResponse> getPatientById(Integer patientId) {
@@ -54,7 +54,7 @@ public class ChildDAOImpl implements ChildDAO {
             patient = new PatientResponse();
             patient.setPatientDetails(patientDetailsResponse);
         }catch (SQLException ex){
-            new RuntimeException("fails");
+            new SQLException();
         }
         child.setChildDetails(childDetails);
         return childDetails;

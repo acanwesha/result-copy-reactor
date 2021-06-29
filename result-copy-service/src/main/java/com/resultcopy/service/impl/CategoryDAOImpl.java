@@ -32,8 +32,6 @@ public class CategoryDAOImpl implements CategoryDAO {
         List<CategoryResponse> categoryList= new ArrayList<>();
         CategoryResponse categoryResponse=null;
         Connection connection = ConnectionFactory.getConnection();
-        Properties prop =new Properties();
-        ClassLoader classloader = Thread.currentThread().getContextClassLoader();
         String sql="SELECT * from category";
 
         try{
@@ -48,7 +46,7 @@ public class CategoryDAOImpl implements CategoryDAO {
             patientResult = new PatientResultResponse();
             patientResult.setCategory(categoryList);
         }catch (SQLException ex){
-            ex.printStackTrace();
+            new RuntimeException("SQL Exception occured");
         }
         patientResult.setCategory(categoryList);
         return categoryList;

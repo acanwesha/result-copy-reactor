@@ -64,7 +64,27 @@
             <version>${project.version}</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>${mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven.surefire.plugin.version}</version>
+            </plugin>
+        </plugins>
+    </build>
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
@@ -74,5 +94,8 @@
         <jackson.version>2.12.1</jackson.version>
         <javax-validation.version>2.0.1.Final</javax-validation.version>
         <project.version>1.0-SNAPSHOT</project.version>
+        <mockito.version>1.10.19</mockito.version>
+        <junit.version>RELEASE</junit.version>
+        <maven.surefire.plugin.version>2.22.1</maven.surefire.plugin.version>
     </properties>
 </project>

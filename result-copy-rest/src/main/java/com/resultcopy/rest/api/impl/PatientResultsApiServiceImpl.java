@@ -87,8 +87,6 @@ import java.util.List;
         }
         patientResult.setPatientt(patient);
         patientResult.setChild(childList);
-        //return Response.ok().entity(patientDto).build();
         return Response.ok().entity(patientResult).build();
-        //return Response.ok().entity(patientDto).build();
     }
 }

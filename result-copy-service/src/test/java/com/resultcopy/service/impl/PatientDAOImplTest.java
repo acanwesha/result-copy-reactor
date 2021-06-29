@@ -1,4 +1,5 @@
 package com.resultcopy.service.impl;
+import com.resultcopy.ChildResponse;
 import com.resultcopy.PatientDetailsResponse;
 import com.resultcopy.PatientResponse;
 import com.resultcopy.service.ConnectionFactory;
@@ -32,70 +33,51 @@ public class PatientDAOImplTest {
     private ResultSet resultSet;
     @Mock
     private PatientDetailsResponse patientDetails;
-    private Object SQLException;
-    private PatientResponse patient;
     @Mock
-    private PatientDAOImpl patientDAO;
-
-
-
+    private PatientDAOImpl mock;
+    @Mock
+    private PatientDetailsResponse patientDetailsResponse;
     @BeforeEach
     void setUp() throws Exception{
         Assertions.assertNotNull(connectionFactory);
         when(connection.prepareStatement(any(String.class))).thenReturn(preparedStatement);
         when(connectionFactory.getConnection()).thenReturn(connection);
-        patient=new PatientResponse();
-        patientDetails=new PatientDetailsResponse();
-/*
+    }
+    @Test
+    public void getPatientById() throws SQLException {
 
-        when(patientDetails.getId()).thenReturn(1);
-        when(patientDetails.getFirstName()).thenReturn("EMM");
-        when(patientDetails.getLastName()).thenReturn("ESPINOSA");
-        when(patientDetails.getMrn()).thenReturn("MX13216584");
-        when(patientDetails.getFin()).thenReturn("MX26548913");
-        patient.setPatientDetails(patientDetails);
-        when(patient.getPatientDetails()).thenReturn(patientDetails);
-        PatientDAOImpl patientDAO=new PatientDAOImpl();
-        when(patientDAO.getPatientById(1)).thenReturn(patient);
-  */
+        patientDetails = new PatientDetailsResponse();
         patientDetails.setId(1);
         patientDetails.setFirstName("EMMA");
         patientDetails.setLastName("ESPINOSA");
-        patientDetails.setMrn("MX12345");
-        patientDetails.setFin("MH54321");
-        patient.setPatientDetails(patientDetails);
+        patientDetails.setMrn("MX13216584");
+        patientDetails.setFin(" MX26548913");
 
         when(resultSet.first()).thenReturn(true);
-        when(resultSet.getInt(1)).thenReturn(1);
+        when(resultSet.getInt(1)).thenReturn(patientDetails.getId());
         when(resultSet.getString(2)).thenReturn(patientDetails.getFirstName());
         when(resultSet.getString(3)).thenReturn(patientDetails.getLastName());
         when(resultSet.getString(4)).thenReturn(patientDetails.getMrn());
         when(resultSet.getString(5)).thenReturn(patientDetails.getFin());
         when(preparedStatement.executeQuery()).thenReturn(resultSet);
 
-        patientDetails.setId(resultSet.getInt(1));
-        patientDetails.setFirstName(resultSet.getString(2));
-        patientDetails.setLastName(resultSet.getString(3));
-        patientDetails.setMrn(resultSet.getString(4));
-        patientDetails.setFin(resultSet.getString(5));
-        patient.setPatientDetails(patientDetails);
-        PatientDAOImpl patientDAO=new PatientDAOImpl();
-        when(patientDAO.getPatientById(1)).thenReturn(patient);
+        patientDetailsResponse = new PatientDetailsResponse();
+        patientDetailsResponse.setId(resultSet.getInt(1));
+        patientDetailsResponse.setFirstName(resultSet.getString(2));
+        patientDetailsResponse.setLastName(resultSet.getString(3));
+        patientDetailsResponse.setMrn(resultSet.getString(4));
+        patientDetailsResponse.setFin(resultSet.getString(5));
+        PatientResponse patientResponse = new PatientResponse();
+        patientResponse.setPatientDetails(patientDetailsResponse);
+        mock = org.mockito.Mockito.mock(PatientDAOImpl.class);
+        when(mock.getPatientById(1)).thenReturn(patientResponse);
+
+        PatientResponse p = new PatientDAOImpl(connectionFactory).getPatientById(1);
+
+        Assertions.assertEquals(p.getPatientDetails().getId(),patientResponse.getPatientDetails().getId());
+
     }
-    @Test
-    public void getPatientById() throws SQLException {
-        PatientResponse actual=new PatientDAOImpl(connectionFactory).getPatientById(1);
-        Assertions.assertNotEquals(patient,actual);
-    }
-    @Test(expected=SQLException.class)
-    public void nullPatientThrowsException() throws Throwable{
-        new PatientDAOImpl(connectionFactory).getPatientById(null);
-        Assertions.assertTrue(throwException());
-        Assertions.assertEquals(SQLException,SQLException);
-    }
-    private boolean throwException() throws SQLException {
-        throw new SQLException();
-    }
+
     @Test
     public void testConstructor() {
         PatientDAOImpl patientDAOImpl = new PatientDAOImpl();

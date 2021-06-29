@@ -6,6 +6,10 @@ import lombok.Setter;
 
 import java.util.List;
 
+/**
+ * @author AC089545
+ * Sets the baby request body that is to be copied to baby.
+ */
 @Getter
 @Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)

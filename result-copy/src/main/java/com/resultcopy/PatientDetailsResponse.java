@@ -12,16 +12,17 @@
 
 package com.resultcopy;
 
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.util.Date;
-import java.util.Objects;
 
-/** Demographic information. */
+/**
+ * @author AC089545
+ * Demographic information.
+ */
+
 @Setter
 @Getter
 @JsonInclude(JsonInclude.Include.NON_NULL)

@@ -1,6 +1,5 @@
 package com.resultcopy.rest.api;
 
-
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 

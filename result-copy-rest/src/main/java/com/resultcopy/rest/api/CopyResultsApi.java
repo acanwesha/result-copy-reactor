@@ -20,28 +20,6 @@ import javax.ws.rs.*;
 
 
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-06-21T13:02:06.679Z[GMT]")public class CopyResultsApi  {
-   private final CopyResultsApiService delegate;
-
-   public CopyResultsApi(@Context ServletConfig servletContext) {
-      CopyResultsApiService delegate = null;
-
-      if (servletContext != null) {
-         String implClass = servletContext.getInitParameter("CopyResultsApi.implementation");
-         if (implClass != null && !"".equals(implClass.trim())) {
-            try {
-               delegate = (CopyResultsApiService) Class.forName(implClass).newInstance();
-            } catch (Exception e) {
-               throw new RuntimeException(e);
-            }
-         } 
-      }
-
-      if (delegate == null) {
-         delegate = CopyResultsApiServiceFactory.getCopyResultsApi();
-      }
-
-      this.delegate = delegate;
-   }
 
     @POST
     
@@ -58,6 +36,7 @@ import javax.ws.rs.*;
 
 ,@Context SecurityContext securityContext)
     throws NotFoundException {
+        CopyResultsApiService delegate = CopyResultsApiServiceFactory.getCopyResultsApi();
         return delegate.copyResultsPost(body,securityContext);
     }
 }

@@ -49,7 +49,6 @@ public class BabyResultDAOImpl implements BabyResultDAO {
     }
     @Override
     public boolean createBabyResult(BabyRequest babyRequest) {
-        String status = "SUCCESS";
 
         Connection connection = ConnectionFactory.getConnection();
         BabyResultResponse babyResultResponse=new BabyResultResponse();
@@ -61,8 +60,8 @@ public class BabyResultDAOImpl implements BabyResultDAO {
 
             for(ResultRequest resultRequest:result){
                 String sql =    "insert into baby_result(child_id,value,category_name,result_name,date_time) " +
-                        "Values ( "+babyRequest.getChildId()+" ,  "+resultRequest.getValue() + " , " +
-                        categoryRequest.getDisplayName() + " , " + resultRequest.getDisplayName() + " , curtime() )";
+                        "Values ( "+babyRequest.getChildId()+" ,  '"+resultRequest.getValue() + "' , '" +
+                        categoryRequest.getDisplayName() + "' , '" + resultRequest.getDisplayName() + "' , curtime() )";
 
                 System.out.println("Baby Result Post Request SQL : "+sql);
                 PreparedStatement preparedStatement = null;
@@ -72,7 +71,6 @@ public class BabyResultDAOImpl implements BabyResultDAO {
                     preparedStatement.executeUpdate();
                 }catch (SQLException ex){
                     ex.printStackTrace();
-                    status = "FAILED";
                     return false;
                 }
             }

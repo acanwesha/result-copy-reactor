@@ -1,8 +1,11 @@
 package com.resultcopy;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+
+/**
+ * Sets the result response for a particular child.
+ */
 @Getter
 @Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)

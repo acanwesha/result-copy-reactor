@@ -20,32 +20,7 @@ import java.io.IOException;
 
 
 @Path("/patient-results")
-
-
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-06-10T12:22:56.778Z[GMT]")public class PatientResultsApi  {
-   private final PatientResultsApiService delegate;
-
-   public PatientResultsApi(@Context ServletConfig servletContext) {
-      PatientResultsApiService delegate = null;
-
-      if (servletContext != null) {
-         String implClass = servletContext.getInitParameter("PatientResultsApi.implementation");
-         if (implClass != null && !"".equals(implClass.trim())) {
-            try {
-               delegate = (PatientResultsApiService) Class.forName(implClass).newInstance();
-            } catch (Exception e) {
-               throw new RuntimeException(e);
-            }
-         } 
-      }
-
-      if (delegate == null) {
-         delegate = PatientResultsApiServiceFactory.getPatientResultsApi();
-      }
-
-      this.delegate = delegate;
-   }
-
     @GET
     @Path("/{patientId}")
     
@@ -60,6 +35,7 @@ import java.io.IOException;
     public Response patientResultsPatientIdGet(@Parameter(in = ParameterIn.PATH, description = "A unique identifier of patient to fetch the patient details having the same identifier provided in the path url.",required=true) @PathParam("patientId") String patientId
 ,@Context SecurityContext securityContext)
             throws NotFoundException, IOException {
+        PatientResultsApiService delegate = PatientResultsApiServiceFactory.getPatientResultsApi();
         return delegate.patientResultsPatientIdGet(patientId,securityContext);
     }
 }

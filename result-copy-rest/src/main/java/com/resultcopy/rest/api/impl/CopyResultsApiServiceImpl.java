@@ -23,35 +23,34 @@ import java.util.List;
     @Override
     public Response copyResultsPost(BabyResult body, SecurityContext securityContext) throws NotFoundException {
         BabyResultDAO babyResultDAO=new BabyResultDAOImpl();
-
-        BabyResult babyResult=new BabyResult();
-        List<CategoryRequest> categoryList= new ArrayList<>();
-        List<CategoryPostResult> categoryPostResultList = null;
-
-        CategoryRequest categoryRequest=null;
-        ResultRequest resultRequest=null;
+        boolean isCopied = false;
         BabyRequest babyRequest = new BabyRequest();
-        List<ResultRequest> resultDtoList=null;
+        babyRequest.setChildId(body.getChildId());
 
-        babyRequest.setChildId(babyResult.getChildId());
-        List<CategoryPost> categoryPostList=babyResult.getCategory();
-        for(CategoryPost category:categoryPostList){
-            categoryRequest=new CategoryRequest();
-            categoryRequest.setDisplayName(category.getDisplayName());
-            List<CategoryPostResult> resultRequestList=category.getResult();
-            for(CategoryPostResult resultList:resultRequestList){
-                resultRequest= new ResultRequest();
-                resultDtoList=new ArrayList<>();
-                resultRequest.setDisplayName(resultList.getDisplayName());
-                resultRequest.setValue(resultList.getValue());
-                resultDtoList.add(resultRequest);
+        List<CategoryRequest> categoryRequestsList = new ArrayList<>();
+        List<ResultRequest> resultList = new ArrayList<>();
+        for( CategoryPost categoryPost : body.getCategory()) {
+
+            List<CategoryPostResult> result = categoryPost.getResult();
+
+            for (CategoryPostResult categoryPostResult : result) {
+                CategoryRequest categoryRequest = new CategoryRequest();
+                categoryRequest.setDisplayName(categoryPost.getDisplayName());
+
+                ResultRequest resultRequest = new ResultRequest();
+                resultRequest.setDisplayName(categoryPostResult.getDisplayName());
+                resultRequest.setValue(categoryPostResult.getValue());
+
+                resultList.add(resultRequest);
+                categoryRequest.setResult(resultList);
+
+                categoryRequestsList.add(categoryRequest);
+                babyRequest.setCategory(categoryRequestsList);
+                isCopied = babyResultDAO.createBabyResult(babyRequest);
+
             }
-            categoryRequest.setResult(resultDtoList);
-            categoryList.add(categoryRequest);
         }
-        babyRequest.setCategory(categoryList);
-        babyResultDAO.createBabyResult(babyRequest);
-        return Response.ok().entity(body).build();
+            return Response.ok().entity(isCopied).build();
 
     }
 }
